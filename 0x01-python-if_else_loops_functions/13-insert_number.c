@@ -12,7 +12,7 @@ listint_t *insert_node(listint_t **head, int number)
 
 	current = *head;
 	new = malloc(sizeof(listint_t));
-	if (current->next == NULL)
+	if (current == NULL)
 	{
 		new->n = number;
 		new->next = NULL;
