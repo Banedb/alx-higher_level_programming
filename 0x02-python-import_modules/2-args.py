@@ -4,10 +4,10 @@ if __name__ == "__main__":
     argv = sys.argv
     argc = len(argv) - 1
     if argc == 0:
-        print("0 arguments.")
+        print("{} arguments.".format(argc))
     elif argc == 1:
         print("{} argument:".format(argc))
-        print("1: {}".format(argv[2]))
+        print("{}: {}".format(argc, argv[2]))
     elif argc > 1:
         print("{} arguments:".format(argc))
         for count, arg in enumerate(argv[1:], start=1):
