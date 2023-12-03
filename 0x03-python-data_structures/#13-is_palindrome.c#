@@ -8,19 +8,19 @@
 int is_palindrome(listint_t **head)
 {
 	int i, j,  num = 0;
-	listint_t *check, *copy;
+	listint_t *current, *copy;
 
 	if (!(head))
 		return (1);
-	for (check = *head; check; check = check->next)
+	for (current = *head; current; current = current->next)
 		num++;
 	num--;
-	j = num;
-	for (check = *head; check; check = check->next)
+	j;
+	for (current = *head; current; current = current->next)
 	{
-		for (i = j - num, copy = check; i < num; copy = copy->next, i++)
+		for (i = j - num, copy = current; i < num; copy = copy->next, i++)
 			;
-		if (check->n != copy->n)
+		if (current->n != copy->n)
 			return (0);
 		num--;
 	}
