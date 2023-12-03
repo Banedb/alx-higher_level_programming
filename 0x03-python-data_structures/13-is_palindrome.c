@@ -20,8 +20,10 @@ int is_palindrome(listint_t **head)
 	for (check = *head, i--; check; check = check->next)
 	{
 		if (check->n != new[i])
+		{
 			free(new);
 			return (0);
+		}
 		i--;
 	}
 	free(new);
