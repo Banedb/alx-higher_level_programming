@@ -7,13 +7,14 @@
  */
 int is_palindrome(listint_t **head)
 {
-	int i, j, new[1024];
+	int i, j, *new;
 	listint_t *check;
 
 	if (!(head))
 		return (1);
 	for (check = *head, i = 0; check; check = check->next, i++)
 		;
+	new = malloc(sizeof(int) * i);
 	for (check = *head, j = 0; check; check = check->next, j++)
 		new[j] = check->n;
 	for (check = *head, i--; check; check = check->next)
