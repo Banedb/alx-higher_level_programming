@@ -15,7 +15,6 @@ int is_palindrome(listint_t **head)
 	while (fast && fast->next)
 	{ /* Find the midpoint of the linked list */
 		fast = fast->next->next;
-		prev = slow;
 		slow = slow->next;
 	}
 	/* Adjust pointers for odd/even number of elements */
@@ -25,7 +24,6 @@ int is_palindrome(listint_t **head)
 		second_half_start = slow;
 	/* Reverse the second half of the linked list */
 	current = second_half_start;
-	prev = NULL;
 	while (current != NULL)
 	{
 		next = current->next;
