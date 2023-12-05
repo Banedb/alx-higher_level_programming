@@ -7,20 +7,20 @@
  */
 int is_palindrome(listint_t **head)
 {
-	int i, j,  num = 0;
-	listint_t *current, *copy;
+	int i, j, num = 0;
+	listint_t *check, *copy;
 
 	if (!(head))
 		return (1);
-	for (current = *head; current; current = current->next)
+	for (check = *head; check; check = check->next)
 		num++;
 	num--;
-	j;
-	for (current = *head; current; current = current->next)
+	j = num;
+	for (check = *head; check; check = check->next)
 	{
-		for (i = j - num, copy = current; i < num; copy = copy->next, i++)
+		for (i = j - num, copy = check; i < num; copy = copy->next, i++)
 			;
-		if (current->n != copy->n)
+		if (check->n != copy->n)
 			return (0);
 		num--;
 	}
