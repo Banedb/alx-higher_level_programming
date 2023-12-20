@@ -24,10 +24,10 @@ class Square():
 
     @size.setter
     def size(self, value):
-        # """sets value of size
-        # args:
-        #     value (int): size of the square
-        # """
+        """sets value of size
+        args:
+            value (int): size of the square
+        """
         if not isinstance(value, int):
             raise TypeError("size must be an integer")
         elif value < 0:
@@ -37,7 +37,10 @@ class Square():
 
     @property
     def position(self):
-        """Get or set the position of the square."""
+        """"getter method
+        Return:
+        size as RO
+        """
         return self.__position
 
     @position.setter
