@@ -1,5 +1,8 @@
 #!/usr/bin/python3
-"""Defining a class Square"""
+"""Defining a class Square
+This module on this module with
+this module check
+"""
 
 
 class Square:
@@ -67,7 +70,7 @@ class Square:
 
     def my_print(self):
         """print the square as #"""
-        if self.__size <= 0:
+        if not self.__size:
             print()
         else:
             for _ in (range(self.__position[1])):
