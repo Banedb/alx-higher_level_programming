@@ -1,16 +1,9 @@
 #!/usr/bin/python3
-"""Defining a class Square
-This module on this module with
-this module check
-"""
+"""Defining a class Square"""
 
 
 class Square:
-    """A class Square that defines a square
-    Atributes:
-        __size (int): size of the square
-        __position (tuple): position of num in square
-    """
+    """A class Square that defines a square"""
     def __init__(self, size=0, position=(0, 0)):
         """initializes each object
         args:
