@@ -3,15 +3,16 @@
 
 
 class Square:
-    """A class Square that defines a square"""
+    """Defines a square"""
+
     def __init__(self, size=0, position=(0, 0)):
         """initializes each object
         args:
             size (int): size of the square
             position (tuple): position of num in square
         """
-        self.__size = size
-        self.__position = position
+        self.size = size
+        self.position = position
 
     @property
     def size(self):
