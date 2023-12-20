@@ -45,10 +45,10 @@ class Square():
 
     @position.setter
     def position(self, value):
-        # """sets square to position
-        # args:
-        #     value (tuple): pos in the square
-        # """
+        """sets square to position
+        args:
+            value (tuple): pos in the square
+        """
         if (not isinstance(value, tuple)) or (len(value) != 2) or \
            (not isinstance(value[0], int)) or (not isinstance(value[1], int)) \
            or (value[0] < 0) or (value[1] < 0):
@@ -70,6 +70,25 @@ class Square():
                 print('#' * self.__size)
         else:
             print()
+
+    def area(self):
+        """finds square area from size
+        return:
+            the square area
+        """
+        return self.__size ** 2
+
+    def my_print(self):
+        """print the square as #"""
+        if not self.__size:
+            print()
+        else:
+            for _ in (range(self.__position[1])):
+                print()
+            for _ in (range(self.__size)):
+                print(" " * self.__position[0] + "#" * self.__size)
+
+
 
 
 # class Square:
