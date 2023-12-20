@@ -12,6 +12,7 @@ class Square:
         """initializes each object
         args:
             size (int): size of the square
+            position (tuple): position of num in square
         """
         self.__size = size
         self.__position = position
@@ -69,7 +70,7 @@ class Square:
         if not self.__size:
             print()
         else:
-            for _ in range(self.__position[1]):
+            for _ in (range(self.__position[1])):
                 print()
-            for _ in range(self.__size):
+            for _ in (range(self.__size)):
                 print(" " * self.__position[0] + "#" * self.__size)
