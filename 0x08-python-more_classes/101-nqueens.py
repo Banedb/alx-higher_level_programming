@@ -3,10 +3,12 @@
 This module contains functions for solving the N queens problem
 
 Functions:
-    already_exists(y):
-    def reject(x, y):
-    clear_a(x):
-    nqueens(x):
+    check_spot(board, r, c):
+    init_board(n=4):
+    solve(board, row):
+    fix(board):
+    nqueens(n=4):
+    main():
 
 """
 
@@ -22,7 +24,7 @@ def check_spot(board, r, c):
         r (int): Row.
         c (int): Column.
 
-    Returns:
+    Return:
         0: On success.
         1: On failure.
     """
@@ -83,39 +85,38 @@ def solve(board, row):
         None: On failure.
     """
 
-    for col in range(len(board)):
-        if check_spot(board, row, col):
-            board[row][col] = 1
+    for c in range(len(board)):
+        if check_spot(board, r, c):
+            board[r][c] = 1
 
-            if row == len(board) - 1:
-                print(appl_soln(board))
-                board[row][col] = 0
+            if r == len(board) - 1:
+                print(fix(board))
+                board[r][c] = 0
                 continue
-            elif solve(board, row + 1):
+            elif solve(board, r + 1):
                 return board
             else:
-                board[row][col] = 0
+                board[r][c] = 0
     return
 
 
-def appl_soln(board):
-    """Apply the solution.
+def fix(board):
+    """Gets the solution.
 
     Args:
         board (list): The board to apply the solution.
 
     Returns:
-        soln: The solution.
+        The solution.
     """
 
-    soln = []
-    n = len(board)
+    solutionn = []
 
-    for r in range(n):
-        for c in range(n):
+    for r in range(len(board)):
+        for c in range(len(board)):
             if board[r][c]:
-                soln.append([r, c])
-    return soln
+                solution.append([r, c])
+    return solution
 
 
 def nqueens(n=4):
