@@ -73,7 +73,7 @@ def init_board(n=4):
     return board
 
 
-def solve(board, row):
+def solve(board, r):
     """Solves a row in the board.
 
     Args:
@@ -110,7 +110,7 @@ def fix(board):
         The solution.
     """
 
-    solutionn = []
+    solution = []
 
     for r in range(len(board)):
         for c in range(len(board)):
