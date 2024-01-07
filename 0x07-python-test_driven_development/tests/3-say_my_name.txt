@@ -1,0 +1,43 @@
+==============================
+TEST FOR 3-say_my_name MODULE
+==============================
+
+import module
+::
+	>>> say_my_name = __import__('3-say_my_name').say_my_name
+
+Empty First Name and Last Name:
+::
+	>>> say_my_name("", "")
+	My name is  
+
+First Name as None and Last Name as a string:
+::
+	>>> say_my_name(None, "Doe")
+	Traceback (most recent call last):
+	...
+	TypeError: first_name must be a string
+
+First Name and Last Name as Integers:
+::
+	>>> say_my_name(123, 456)
+	Traceback (most recent call last):
+        ...
+        TypeError: first_name must be a string
+
+First Name as a String and Last Name as a List:
+::
+	>>> say_my_name("John", ["Doe"])
+	Traceback (most recent call last):
+        ...
+        TypeError: last_name must be a string
+
+Unicode Characters in First and Last Names:
+::
+	>>> say_my_name("Jöhn", "Döe")
+	My name is Jöhn Döe
+
+Special Characters in First and Last Names:
+::
+	>>> say_my_name("!@#", "$%^&")
+	My name is !@# $%^&
