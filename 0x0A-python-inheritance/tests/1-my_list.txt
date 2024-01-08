@@ -28,7 +28,7 @@ Undefined object:
 	  >>> MyList = __import__('1-my_list').MyList
 	  >>> my_list2.print_sorted()
 	  Traceback (most recent call last):
-	  File "<stdin>", line 1, in <module>
+	  ...
 	  NameError: name 'my_list2' is not defined
 
 -------------------------------------------------------------
@@ -39,7 +39,7 @@ List:
 	>>> a = [5, 6, 2]
 	>>> my_list = MyList(a)
 	>>> my_list.print_sorted()
-	[5, 6, 2]
+	[2, 5, 6]
 
 -------------------------------------------
 
@@ -82,7 +82,7 @@ Parent object:
 	>>> my_list = [1, 2, 3]
 	>>> my_list.print_sorted()
 	Traceback (most recent call last):
-	File "<stdin>", line 1, in <module>
+	...
 	AttributeError: 'list' object has no attribute 'print_sorted'
 
 ------------------------------------------------------------------
