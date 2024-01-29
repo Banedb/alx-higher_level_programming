@@ -13,8 +13,8 @@ if __name__ == "__main__":
     load = __import__('6-load_from_json_file').load_from_json_file
     f = "add_item.json"
     if exists(f):
-        my_list = load_from_json_file(f)
+        my_list = load(f)
     else:
         my_list = []
-        my_list.extend(argv[1:])
-        save_to_json_file(my_list, f)
+    my_list.extend(argv[1:])
+    save(my_list, f)
