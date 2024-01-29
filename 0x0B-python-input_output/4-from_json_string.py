@@ -5,7 +5,7 @@
 import json
 
 
-def from_json_string(my_obj):
+def from_json_string(my_str):
     """converts object to json string
 
     Args:
@@ -14,4 +14,4 @@ def from_json_string(my_obj):
     Return:
         Json
     """
-    return json.loads(my_obj)
+    return json.loads(my_str)
