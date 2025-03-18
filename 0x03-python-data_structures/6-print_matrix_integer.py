@@ -2,7 +2,6 @@
 def print_matrix_integer(matrix=[[]]):
     if matrix != [[]]:
         for row in matrix:
-            braces = " ".join(["{}"] * len(row))
-            print(braces.format(*row))
+            print((" ".join(["{}"] * len(row))).format(*row))
     else:
         print("{}".format("\n"), end="")
