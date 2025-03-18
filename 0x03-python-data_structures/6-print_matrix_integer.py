@@ -2,6 +2,10 @@
 def print_matrix_integer(matrix=[[]]):
     if matrix != [[]]:
         for row in matrix:
-            print((" ".join(["{}"] * len(row))).format(*row))
+            for index, i in enumerate(row):
+                if index == len(row) - 1:
+                    print("{:d}".format(i))
+                else:
+                    print("{:d}".format(i), end=' ')
     else:
-        print("{}".format("\n"), end="")
+        print("".format())
