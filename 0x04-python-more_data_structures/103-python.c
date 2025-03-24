@@ -20,13 +20,12 @@ void print_python_bytes(PyObject *p)
 	}
 	size = PyBytes_Size(p);
 	str = PyBytes_AsString(p);
-	len = size > 10 ? 10 : size + 1;
+	len = size + 1 > 10 ? 10 : size + 1;
 	printf("  size: %ld\n", size);
 	printf("  trying string: %s\n", str);
 	printf("  first %ld bytes: ", len);
 	for (i = 0; i < len; i++)
-		printf("%02x%s",
-		       (unsigned char)str[i], i == len - 1 ? "" : " ");
+		printf("%02hhx%s", str[i], i == len - 1 ? "" : " ");
 	printf("\n");
 }
 
@@ -38,13 +37,12 @@ void print_python_bytes(PyObject *p)
 void print_python_list(PyObject *p)
 {
 	PyObject *item, *item_type;
-	Py_ssize_t i, alloc, size = PyList_Size(p);
+	Py_ssize_t i, size = PyList_Size(p);
 	PyTypeObject *type;
 
-	alloc = ((PyListObject *)p)->allocated;
 	printf("[*] Python list info\n");
 	printf("[*] Size of the Python List = %ld\n", size);
-	printf("[*] Allocated = %ld\n", alloc);
+	printf("[*] Allocated = %ld\n", ((PyListObject *)p)->allocated);
 	for (i = 0; i < size; i++)
 	{
 		item = PyList_GET_ITEM(p, i);
