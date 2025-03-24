@@ -12,6 +12,7 @@ void print_python_bytes(PyObject *p)
 	Py_ssize_t i, size, len;
 	char *str;
 
+	printf("[.] bytes object info\n");
 	if (!PyBytes_Check(p))
 	{
 		printf("  [ERROR] Invalid Bytes Object\n");
@@ -20,7 +21,6 @@ void print_python_bytes(PyObject *p)
 	size = PyBytes_Size(p);
 	str = PyBytes_AsString(p);
 	len = size > 10 ? 10 : size + 1;
-	printf("[.] bytes object info\n");
 	printf("  size: %ld\n", size);
 	printf("  trying string: %s\n", str);
 	printf("  first %ld bytes: ", len);
