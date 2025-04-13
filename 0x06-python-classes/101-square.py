@@ -25,11 +25,17 @@ class Square():
 
     def __str__(self):
         """Sets the print behavior of the Square object."""
-        if self.__size == 0:
-            return ""
-        line = " " * self __position[0] + "#" * self.__size
-        return "\n" * self.__position[1] + "#" * self __size)
+        square_str = ""
 
+        if self.__size > 0:
+            for y in range(self.__position[1]):
+                square_str += '\n'
+            for x in range(self.__size):
+                square_str += ' ' * self.__position[0]
+                square_str += '#' * self.__size + '\n'
+
+        return square_str[:-1]
+    
     @property
     def size(self):
         """Get or set the size of the square."""
