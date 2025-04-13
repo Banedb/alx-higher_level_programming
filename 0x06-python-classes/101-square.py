@@ -30,7 +30,7 @@ class Square():
             return ""
         line = " " * self.__position[0] + "#" * self.__size
         return "\n" * self.__position[1] + "\n".join([line] * self.__size)
-    
+
     @property
     def size(self):
         """Get or set the size of the square."""
