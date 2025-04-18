@@ -55,13 +55,11 @@ test special numbers
 Test boolean
 ::
 	>>> add(True, 5)
-	6
-	>>> add(5, True)
-	6
-	>>> add(False, 5)
-	5
+	Traceback (most recent call last):
+	TypeError: a must be an integer
 	>>> add(5, False)
-	5
+	Traceback (most recent call last):
+	TypeError: b must be an integer
 
 
 Test incorrect input
