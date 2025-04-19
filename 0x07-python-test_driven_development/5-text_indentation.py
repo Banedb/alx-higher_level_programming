@@ -1,33 +1,19 @@
 #!/usr/bin/python3
-"""5-text_indentation
-This module contains a single function to print squares
-Functions:
-    text_indentation(text): prints squares
-"""
+"""5-text_indentation module"""
 
 
 def text_indentation(text):
-    """Function to print sqauares with #
-    Purpose:
-        print size-sized square with #
-    """
-
-    if not isinstance(text, str):
+    """Prints a text with 2 new lines after '.', '?' or ':'"""
+    if type(text) is not str:
         raise TypeError("text must be a string")
-    skip = False
-    new_text = ""
+    skip = True
     for char in text:
-        if (skip and char == ' '):
+        if char == ' ' and skip:
             continue
-        if skip and char != ' ' and char != '\n':
-            skip = False
-        if char in '?.:':
-            new_text += char + "\n"
-            print(new_text.strip(" "))
+        print(char, end='')
+        skip = False
+        if char == '\n':
             skip = True
-            new_text = ""
-        else:
-            new_text += char
-            if char == '\n':
-                skip = True
-    print(new_text.strip(" "), end="")
+        if char in ('.', '?', ':'):
+            print("\n")
+            skip = True
