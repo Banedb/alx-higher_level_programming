@@ -2,7 +2,7 @@
 """3-say_my_name
 This module contains a single function for dividing all elements of a matrix
 Functions:
-    say_my_name(first_name, last_name=""): prints name with concat of given args
+    say_my_name(first_name, last_name=""): prints name with given args
 """
 
 
