@@ -67,10 +67,9 @@ A minimum of two arguments must be provided. Otherwise, a TypeError is raised.
 
 ::
 
-    >>> print(matrix_mul()) # doctest: +NORMALIZE_WHITESPACE
+    >>> print(matrix_mul(m_a)) # doctest: +NORMALIZE_WHITESPACE
     Traceback (most recent call last):
-    TypeError: matrix_mul() missing 2 required positional arguments: 
-    'm_a' and 'm_b'
+    TypeError: matrix_mul() missing 1 required positional argument: 'm_b'
 
 ::
 
