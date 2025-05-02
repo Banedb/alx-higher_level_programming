@@ -1,154 +1,74 @@
 #!/usr/bin/python3
-""" 101-nqueens
-This module contains functions for solving the N queens problem
-
-Functions:
-    check_spot(board, r, c):
-    init_board(n=4):
-    solve(board, row):
-    fix(board):
-    nqueens(n=4):
-    main():
-
-"""
+"""101-nqueens: Solves the N-Queens problem using iterative backtracking."""
+import sys
 
 
-from sys import argv
-
-
-def check_spot(board, r, c):
-    """Checks spots for the board.
+def nqueens(num):
+    """Iteratively solves the N-Queens problem and prints each solution.
 
     Args:
-        board (list): A board to check.
-        r (int): Row.
-        c (int): Column.
-
-    Return:
-        0: On success.
-        1: On failure.
+        num (int): size of the board and number of queens
     """
 
-    n = len(board) - 1
+    table = {}  # table of candidates
+    solution = []  # viable solution to the nqueens problem
+    idx = []  # idx to iterate through candidates
+    line = 0  # row
 
-    if board[r][c]:
-        return 0
-
-    for row in range(r):
-        if board[row][c]:
-            return 0
-
-    i = r
-    j = c
-    while i > 0 and j > 0:
-        i -= 1
-        j -= 1
-        if board[i][j]:
-            return 0
-
-    i = r
-    j = c
-    while i > 0 and j < n:
-        i -= 1
-        j += 1
-        if board[i][j]:
-            return 0
-
-    return 1
-
-
-def init_board(n=4):
-    """Initializes the board.
-
-    Args:
-        n (int, optional): The number of queens. Defaults to 4.
-
-    Returns:
-        board: The initialized board.
-    """
-
-    board = []
-    for _ in range(n):
-        board.append([0 for _ in range(n)])
-    return board
-
-
-def solve(board, r):
-    """Solves a row in the board.
-
-    Args:
-        board (list): The board.
-        row (int): The row to solve.
-
-    Returns:
-        board: The solved board.
-        None: On failure.
-    """
-
-    for c in range(len(board)):
-        if check_spot(board, r, c):
-            board[r][c] = 1
-
-            if r == len(board) - 1:
-                print(fix(board))
-                board[r][c] = 0
-                continue
-            elif solve(board, r + 1):
-                return board
+    while 0 <= line < num:
+        candidates = [col for col in range(num) if not any
+                      (col == c or abs(line - r) == abs(col - c)
+                       for r, c in solution)]  # collect column candidates
+        if candidates:
+            if f"row{line}" not in table:
+                idx.append(0)
+                table[f"row{line}"] = candidates
             else:
-                board[r][c] = 0
-    return
+                idx[line] += 1
+            try:
+                solution.append([line, candidates[idx[line]]])
+                line += 1
+            except IndexError:  # Exhausted options in current line, backtrack
+                table.pop(f"row{line}", None)
+                idx.pop()
+                if solution:
+                    solution.pop()
+                line -= 1
+        else:  # No candidates, backtrack
+            try:
+                idx[line - 1] += 1
+                solution[line - 1][1] = table[f"row{line - 1}"][idx[line - 1]]
+            except IndexError:  # Backtrack further
+                del solution[-2:]
+                table.pop(f"row{line - 1}", None)
+                idx.pop()
+                line -= 2
 
-
-def fix(board):
-    """Gets the solution.
-
-    Args:
-        board (list): The board to apply the solution.
-
-    Returns:
-        The solution.
-    """
-
-    solution = []
-
-    for r in range(len(board)):
-        for c in range(len(board)):
-            if board[r][c]:
-                solution.append([r, c])
-    return solution
-
-
-def nqueens(n=4):
-    """Solves row by row in each column.
-
-    Args:
-        n (int, optional): The number of queens. Defaults to 4.
-    """
-
-    for col in range(n):
-        board = init_board(n)
-        board[0][col] = 1
-        solve(board, 1)
+        if len(solution) == num:
+            print(solution)
+            # Prepare for next solution
+            del solution[-2:]
+            table.pop(f"row{line - 1}", None)
+            idx.pop()
+            line -= 2
 
 
 def main():
-    """Validates arguments and starts solving.
-    """
+    """Parses arguments and calls nqueens."""
 
-    if len(argv) != 2:
+    if len(sys.argv) != 2:
         print("Usage: nqueens N")
-        exit(1)
+        sys.exit(1)
     try:
-        n = int(argv[1])
+        num = int(sys.argv[1])
     except ValueError:
         print("N must be a number")
-        exit(1)
-    if n < 4:
+        sys.exit(1)
+    if num < 4:
         print("N must be at least 4")
-        exit(1)
+        sys.exit(1)
 
-    nqueens(n)
+    nqueens(num)
 
 
 if __name__ == "__main__":
