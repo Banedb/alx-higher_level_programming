@@ -3,7 +3,7 @@
 
 
 def can_assign_attr(obj, attr):
-    """Checks if obj can be assigned an attribute"""
+    """Checks if obj can be assigned an attribute."""
     if not hasattr(obj, "__dict__"):
         return False
 
@@ -20,6 +20,7 @@ def can_assign_attr(obj, attr):
 
 
 def add_attribute(obj, name, value):
+    """Adds a new attribute to an object if it's possible."""
     if can_assign_attr(obj, value):
         setattr(obj, name, value)
     else:
