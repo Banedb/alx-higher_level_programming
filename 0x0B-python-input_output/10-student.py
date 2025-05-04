@@ -15,5 +15,4 @@ class Student:
         """Retrieves a dictionary representation of a Student instance."""
         if type(attrs) is list and all(type(attr) is str for attr in attrs):
             return {k: v for k, v in self.__dict__.items() if k in attrs}
-        else:
-            return self.__dict__
+        return self.__dict__
