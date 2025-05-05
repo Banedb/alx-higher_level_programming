@@ -20,9 +20,13 @@ def print_stats():
 
 try:
     for count, line in enumerate(sys.stdin, start=1):
-        my_list = line.split()
-        file_size += int(my_list[-1])
-        status_table[my_list[-2]] += 1
+        pieces = line.split()
+        try:
+            file_size += int(pieces[-1])
+            if pieces[-2] in status_table:
+                status_table[pieces[-2]] += 1
+        except (IndexError, ValueError):
+            pass
 
         if count % 10 == 0:
             print_stats()
