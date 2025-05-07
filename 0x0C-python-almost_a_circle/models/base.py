@@ -12,6 +12,7 @@ class Base:
     __nb_objects = 0
 
     def __init__(self, id=None):
+        """Initialises the base class"""
         if id is not None:
             self.id = id
         else:
@@ -20,6 +21,7 @@ class Base:
 
     @staticmethod
     def draw(list_rectangles, list_squares):
+        """Draws class instances using turtle"""
         turtle.bgcolor("grey")
         t = turtle.Turtle()
         t.pensize(5)
