@@ -1,28 +1,17 @@
 #!/usr/bin/python3
-"""Base Module
-"""
+"""base module"""
+
 import json
 import csv
-from turtle import *
-from random import choice
+import turtle
+import itertools
 
 
 class Base:
-    """Base class
-
-    Attributes:
-        __nb_objects (int): provate class attribute
-    """
+    """Base class"""
     __nb_objects = 0
 
     def __init__(self, id=None):
-        """init method
-
-        Initializes the class
-
-        Args:
-            id: keyword argument
-        """
         if id is not None:
             self.id = id
         else:
@@ -30,144 +19,94 @@ class Base:
             self.id = Base.__nb_objects
 
     @staticmethod
+    def draw(list_rectangles, list_squares):
+        turtle.bgcolor("grey")
+        t = turtle.Turtle()
+        t.pensize(5)
+        t.hideturtle()
+        for rect, sq in itertools.zip_longest(list_rectangles, list_squares):
+            if rect:
+                t.penup()
+                t.goto(rect.x, rect.y)
+                t.pendown()
+                t.pencolor("black")
+                for _ in range(2):
+                    t.forward(rect.width)
+                    t.right(90)
+                    t.forward(rect.height)
+                    t.right(90)
+            if sq:
+                t.penup()
+                t.goto(sq.x, sq.y)
+                t.pendown()
+                t.pencolor("white")
+                for _ in range(4):
+                    t.forward(sq.size)
+                    t.right(90)
+        turtle.done()
+
+    @staticmethod
     def to_json_string(list_dictionaries):
-        """Converts a list of dict to JSON and returns it"""
-        if not list_dictionaries:
-            return '[]'
-        return json.dumps(list_dictionaries)
+        """Returns the JSON string representation of a list of dictionaries
+        (list_dictionaries)."""
+        return json.dumps(list_dictionaries) if list_dictionaries else "[]"
 
     @staticmethod
     def from_json_string(json_string):
-        """returns the list of the JSON string
-        representation json_string
-        """
-        if not json_string:
-            return []
-        return json.loads(json_string)
+        """Loads and returns a list from the JSON string representation
+        (json_string)."""
+        return json.loads(json_string) if json_string else []
 
     @classmethod
     def save_to_file(cls, list_objs):
-        """writes the JSON string representation
-        of list_objs to a file
-        """
-        file = '{}.json'.format(cls.__name__)
-        with open(file, 'w') as f:
-            if not list_objs:
-                f.write('[]')
-            else:
-                list_dicts = [obj.to_dictionary() for obj in list_objs]
-                f.write(cls.to_json_string(list_dicts))
+        """Writes the JSON string representation of a list of objects
+        (list_objs) to a file."""
+        with open(f"{cls.__name__}.json", "w", encoding="utf-8") as f:
+            dict_list = ([obj.to_dictionary() for obj in list_objs]
+                         if list_objs else [])
+            f.write(cls.to_json_string(dict_list))
+            # json.dump(dict_list, f)
+
+    @classmethod
+    def load_from_file(cls):
+        """Returns a list of objects created from a list of dict loaded from
+        json string in file '<class_name>.json'."""
+        try:
+            with open(f"{cls.__name__}.json", encoding="utf-8") as f:
+                dict_list = cls.from_json_string(f.read())
+                return [cls.create(**dict_i) for dict_i in dict_list]
+        except FileNotFoundError:
+            return []
 
     @classmethod
     def create(cls, **dictionary):
-        """returns an instance with all attributes already set"""
+        """Returns a new instance of cls with dictionary attributes"""
         dummy = cls(**dictionary)
         dummy.update(**dictionary)
         return dummy
 
     @classmethod
-    def load_from_file(cls):
-        """returns a list of instances"""
-        file = '{}.json'.format(cls.__name__)
-        newlist = []
-        try:
-            with open(file, 'r') as f:
-                new = cls.from_json_string(f.read())
-                for dictionary in new:
-                    newlist.append(cls.create(**dictionary))
-                return newlist
-        except FileNotFoundError:
-            return []
-
-    @classmethod
     def save_to_file_csv(cls, list_objs):
-        """Saves an object to a csv file"""
-        file = '{}.csv'.format(cls.__name__)
-        with open(file, 'w', newline='') as f:
-            doc = csv.writer(f, dialect='excel')
+        """Writes the csv string representation of a list of objects
+        (list_objs) to a file."""
+        with open(f"{cls.__name__}.csv", "w", encoding="utf-8") as f:
             if not list_objs:
-                doc.writerow('')
-            else:
-                for obj in list_objs:
-                    if cls.__name__ == 'Rectangle':
-                        row = [
-                                obj.id,
-                                obj.width,
-                                obj.height,
-                                obj.x,
-                                obj.y
-                                ]
-                        doc.writerow(row)
-                    else:
-                        row = [obj.id, obj.size, obj.x, obj.y]
-                        doc.writerow(row)
+                return
+            dict_list = [obj.to_dictionary() for obj in list_objs]
+            writer = csv.DictWriter(f, fieldnames=list(dict_list[0].keys()))
+            writer.writeheader()
+            writer.writerows(dict_list)
 
     @classmethod
     def load_from_file_csv(cls):
-        """loads from a csv file"""
-        templist = []
-        file = '{}.csv'.format(cls.__name__)
+        """Writes the JSON string representation of a list of objects
+        (list_objs) to a file."""
         try:
-            with open(file, newline='') as f:
-                docreader = csv.reader(f, delimiter=',')
-                for row in docreader:
-                    row = [int(x) if x.isdigit() else x for x in row]
-                    if cls.__name__ == 'Rectangle':
-                        temp = cls(1, 1)
-                    else:
-                        temp = cls(1)
-                    temp.update(*row)
-                    templist.append(temp)
-                return templist
+            with open(f"{cls.__name__}.csv", encoding="utf-8") as f:
+                reader = csv.DictReader(f)
+                # print(list(reader))
+                dict_list = [{k: int(v) for k, v in dict_i.items()}
+                             for dict_i in list(reader)]
+                return [cls.create(**dict_i) for dict_i in dict_list]
         except FileNotFoundError:
             return []
-
-    @staticmethod
-    def draw(list_rectangles, list_squares):
-        """Draws a list of rectangle and squares
-
-        Colors used are from pantone color palette 2015
-        """
-        t = Turtle()
-        t.hideturtle()
-        screen = Screen()
-        screen.bgcolor('#006994')
-        color_list = [
-                '#9dc6d8',
-                '#00b3ca',
-                '#7dd0b6',
-                '#1d4e89',
-                '#d2b29b',
-                '#e38690',
-                '#f69256',
-                '#ead98b',
-                '#965251',
-                '#c6cccc'
-                ]
-        for rectangle in list_rectangles:
-            t.color(choice(color_list))
-            t.penup()
-            t.goto(rectangle.x * 3, rectangle.y * 3)
-            t.pendown()
-            t.begin_fill()
-            for _ in range(2):
-                t.fd(rectangle.width)
-                t.right(90)
-                t.fd(rectangle.height)
-                t.right(90)
-            t.end_fill()
-            t.penup()
-
-        for square in list_squares:
-            t.color(choice(color_list))
-            t.penup()
-            t.goto(square.x * 3, square.y * 3)
-            t.pendown()
-            t.begin_fill()
-            for _ in range(4):
-                t.fd(square.size)
-                t.right(90)
-            t.end_fill()
-            t.penup()
-
-        done()

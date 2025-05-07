@@ -1,57 +1,41 @@
 #!/usr/bin/python3
-"""Square Module
+"""square module"""
 
-Inherits from Rectangle
-"""
 from models.rectangle import Rectangle
 
 
 class Square(Rectangle):
-    """Square class
-
-    Has Rectangle as its super class
-    """
+    """Inherits from class Rectangle"""
     def __init__(self, size, x=0, y=0, id=None):
-        """Init method
-
-        Initializes new instances of square
-        """
-        super().__init__(width=size, height=size, x=x, y=y, id=id)
+        """Inherits attributes from the super class"""
+        super().__init__(size, size, x, y, id)
 
     def __str__(self):
-        """Str method"""
-        return (f'[Square] ({self.id}) {self.x}/{self.y} '
-                f'- {self.height}')
+        """Prints instance information."""
+        return f"[Square] ({self.id}) {self.x}/{self.y} - {self.width}"
 
     @property
     def size(self):
-        """public getter and setter for size"""
+        """Getter method for width."""
         return self.width
 
     @size.setter
-    def size(self, size):
-        self.width = size
-        self.height = size
+    def size(self, value):
+        """Setter method for width."""
+        self.width = value
+        self.height = value
 
     def update(self, *args, **kwargs):
-        """Update method"""
-        keys = ['id', 'size', 'x', 'y']
-        keyset = set()
+        """Assigns arguments to attributes."""
+        attrs = ["id", "size", "x", "y"]
         if args:
-            for key, value in zip(keys, args):
-                if hasattr(self, key):
-                    setattr(self, key, value)
-                    keyset.add(key)
-        if kwargs:
-            for key, value in kwargs.items():
-                if hasattr(self, key) and key not in keyset:
-                    setattr(self, key, value)
+            for count, value in enumerate(args[:4]):
+                setattr(self, attrs[count], value)
+        else:
+            for attr, value in kwargs.items():
+                setattr(self, attr, value)
 
     def to_dictionary(self):
-        """Converts square instance to dictionaty"""
-        return {
-                'id': self.id,
-                'size': self.size,
-                'x': self.x,
-                'y': self.y
-                }
+        """Returns the dictionary representation of a square instance"""
+        attrs = ["id", "size", "x", "y"]
+        return {f"{attr}": getattr(self, attr) for attr in attrs}
