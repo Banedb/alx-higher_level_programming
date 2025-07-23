@@ -3,7 +3,7 @@
 from relationship_state import State
 from relationship_city import City
 from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker, joinedload
+from sqlalchemy.orm import sessionmaker  # , joinedload
 from sys import argv
 
 if __name__ == "__main__":
@@ -13,6 +13,8 @@ if __name__ == "__main__":
     )
 
     session = sessionmaker(bind=engine)()
+    # for state in session.query(State).options(
+    #         joinedload(State.cities)).order_by(State.id):
     for state in session.query(State).order_by(State.id):
         print(f"{state.id}: {state.name}")
         for city in sorted(state.cities, key=lambda x: x.id):
