@@ -13,8 +13,7 @@ if __name__ == "__main__":
     )
 
     session = sessionmaker(bind=engine)()
-    for state in session.query(State).options(
-            joinedload(State.cities)).order_by(State.id):
+    for state in session.query(State).order_by(State.id):
         print(f"{state.id}: {state.name}")
         for city in sorted(state.cities, key=lambda x: x.id):
             print(f"\t{city.id}: {city.name}")
