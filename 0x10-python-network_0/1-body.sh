@@ -1,3 +1,3 @@
 #!/bin/bash
-# Sends a request and displays size of body of response.
-curl -s "$1" | wc -c
+# Sends a request and displays the body of response.
+curl -s "$1"
