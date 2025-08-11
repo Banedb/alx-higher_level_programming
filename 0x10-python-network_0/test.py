@@ -14,7 +14,7 @@ avg_time = 0
 
 for j in range(10):
     start_time = time.time()
-    
+
     for i in range(10):
         res = find_peak(a)
         if res not in answers:
@@ -29,11 +29,11 @@ for j in range(10):
 
     for i in range(10):
         find_peak(a2)
-    
+
     end_time = time.time()
     avg_time += (end_time - start_time)
 
-avg_time = avg_time / 10    
+avg_time = avg_time / 10
 
 if avg_time > 5.0:
     print("Too slow")
