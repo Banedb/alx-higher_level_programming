@@ -1,4 +1,4 @@
-##!/usr/bin/python3
+#!/usr/bin/python3
 """ 6-peak module """
 def find_peak(list_of_integers):
     """Finds a peak in a list of unsorted integers."""
