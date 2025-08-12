@@ -9,3 +9,5 @@ if __name__ == "__main__":
     r = requests.get(url, auth=auth)
     if r.status_code == 200:
         print(r.json().get("id"))
+    else:
+        print("None")
