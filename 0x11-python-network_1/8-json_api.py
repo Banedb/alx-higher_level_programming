@@ -13,5 +13,5 @@ if __name__ == "__main__":
             print(f'[{jsonstr.get("id")}] {jsonstr.get("name")}')
         else:
             print("No result")
-    except json.decoder.JSONDecodeError:
+    except ValueError:
         print("Not a valid JSON")
