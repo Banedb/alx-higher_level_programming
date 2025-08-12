@@ -7,9 +7,7 @@ if __name__ == "__main__":
     url = f"https://api.github.com/repos/{argv[2]}/{argv[1]}/commits"
     r = requests.get(url)
     if r.status_code == 200:
-        for count, commit in enumerate(r.json()):
-            if count == 10:
-                break
+        for commit in r.json()[:10]:
             author = commit.get("commit").get("author").get("name")
             print(f'{commit.get("sha")}: {author}')
     else:
